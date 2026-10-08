@@ -1,11 +1,11 @@
 <!-- 
 NAME: Thomas Mairella
-DATE: // 09/23/26
-VERSION: // v1
-SOURCES USED:
+DATE: // 10/08/26
+VERSION: // v7
+SOURCES USED: Practice Activities (Classroom)
 COMMENTS / NOTES:
-- Description:
-- Instructions: 
+- Description: This is my portfolio website for Computer Science.
+- Instructions: just open in any web browser ;)
 -->
 
 <!DOCTYPE HTML>
@@ -63,12 +63,14 @@ COMMENTS / NOTES:
             <p>Availability: Contact me for hours</p>
             <p>Favorite Editor: Visual Studio Code</p>
           </aside>
+
           <!-- Image goes here -->
           <figure>
-          <img src="https://kitchenfunwithmy3sons.com/wp-content/uploads/2020/02/fluffy-cow-1-scaled.jpg" alt="cute cow profile picture" width="400" height="400">
-          <figcaption>Thomas Mairella, Computer Science student</figcaption>
+            <img src="images/picofme.jpg" alt="a picture of me (thomas Mairella)" width="400" height="400">
+            <figcaption>Thomas Mairella, Computer Science student</figcaption>
           </figure>
         </section>
+
         <!-- Media embed goes here -->
         <video controls width="320" poster="https://peach.blender.org/wp-content/uploads/watchtrailer.gif">
           <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
@@ -116,20 +118,21 @@ COMMENTS / NOTES:
           <!-- Project cards with images -->
           <!-- Project Card #1 -->
           <figure>
-            <img src="https://newbornposing.com/wp-content/uploads/2020/09/aspect-ratio-print-size-5.jpg" alt="first image to test that images work" width="300" height="200">
-            <figcaption>Project Test 1</figcaption>
+            <img src="images/slotz.png" alt="first image to test that images work" width="300" height="200">
+            <figcaption>Slotz</figcaption>
           </figure>
           <!-- Project Card #2 -->
           <figure>
-            <img src="https://newbornposing.com/wp-content/uploads/2020/09/aspect-ratio-print-size-5.jpg" alt="second image to test that images work" width="300" height="200">
-            <figcaption>Project Test 2</figcaption>
+            <img src="images/zihh.png" alt="second image to test that images work" width="300" height="200">
+            <figcaption>Zihh.</figcaption>
           </figure>
           <!-- Project Card #3 -->
           <figure>
-            <img src="https://newbornposing.com/wp-content/uploads/2020/09/aspect-ratio-print-size-5.jpg" alt="third image to test that images work" width="300" height="200">
-            <figcaption>Project Test 3</figcaption>
+            <img src="images/morsecode.png" alt="third image to test that images work" width="300" height="200">
+            <figcaption>Arduino Morse Code</figcaption>
           </figure>
         </section>
+
         <!-- Table goes here -->
         <table>
           <thead>
@@ -167,6 +170,52 @@ COMMENTS / NOTES:
       <section id="contact">
         <!-- Contact info here -->
         <h2>Contact Me</h2>
+        <form action="#" method="POST" id="contactForm">
+          <!-- Form fields here -->
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" rows="5" placeholder="Your Message"></textarea>
+
+          <fieldset>
+            <legend>Project Details</legend>
+            <!-- Select -->
+            <section id="select-group">
+              <select name="projectType">
+                <option>Game</option>
+                <option>Application</option>
+                <option>Website</option>
+                <option>Other</option>
+              </select>
+            </section>
+
+            <!-- Radios -->
+            <section id="radios-group">
+              <!-- Radio #1 -->
+              <input type="radio" id="budget1" name="budget">
+              <label for="budget1">$1k-$5k</label>
+              <!-- Radio #2 -->
+              <input type="radio" id="budget2" name="budget">
+              <label for="budget2">$5k-$15k</label>
+              <!-- Radio #3 -->
+              <input type="radio" id="budget3" name="budget">
+              <label for="budget3">$15k+</label>
+            </section>
+          </fieldset>
+
+          <fieldset>
+            <legend>Preferences</legend>
+            <!-- Newsletter -->
+            <section id="newsletter">
+              <input type="checkbox" id="newsletter" name="newsletter">
+              <label for="newsletter">Subscribe to updates</label>
+            </section>
+          </fieldset>
+
+          <button type="submit">Send Message 🚀</button>
+          <button type="button">Clear Form</button>
+          <button type="button" onclick="window.print()">Print</button>
+        </form>
+
         <a href="mailto:thomas.mairella@gmail.com">Email</a>
         <a href="tel:7327797919">Phone</a>
         <a href="javascript:window.print()">Print This Page</a>
