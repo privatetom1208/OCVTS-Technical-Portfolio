@@ -46,9 +46,11 @@ COMMENTS / NOTES:
 
       <!-- About Section -->
       <section id="about">
-        <h2>About Me</h2>
+        <div class="container">
+          <h2>About Me</h2>
         <section id="about-content">
-          <!-- Add paragraphs here -->
+          <div class="container">
+            <!-- Add paragraphs here -->
           <p>My name is <strong>Thomas Mairella</strong>, and I am a Computer Science student.</p>
           <p>I have a passion for <em>creating</em> and just love anything related to computers.</p>
           <p>When I'm not coding, you can find me exploring new<br>technologies or contributing to open-source projects.</p>
@@ -70,6 +72,7 @@ COMMENTS / NOTES:
             <img src="images/picofme.jpg" alt="a picture of me (thomas Mairella)" width="400" height="400">
             <figcaption>Thomas Mairella, Computer Science student</figcaption>
           </figure>
+          </div>
         </section>
 
         <!-- Media embed goes here -->
@@ -81,11 +84,13 @@ COMMENTS / NOTES:
           <source src="https://www.w3schools.com/html/horse.ogg" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
+        </div>
       </section>
 
       <!-- Skills Section -->
       <section id="skills">
-        <h2>My Skills</h2>
+        <div class="container">
+          <h2>My Skills</h2>
         <!-- List goes here -->
         <h3>Technical Skills</h3>
         <ul>
@@ -110,13 +115,16 @@ COMMENTS / NOTES:
           <li>Goes to TRHSN for <strong>Digital Arts Academy <em>2023-PRESENT</em></strong> (Worked in Photoshop, Web Page, Unreal & Unity.)</li>
           <li>Worked at <strong>Windjammer Motor Inn <em>2025-PRESENT</em></strong> (Worked as a busser and dishwasher.)</li>
         </ol>
+        </div>
       </section>
 
       <!-- Projects Section -->
       <section id="projects">
-        <h2>My Projects</h2>
+        <div class="container">
+          <h2>My Projects</h2>
         <section class="projects-grid">
-          <!-- Project cards with images -->
+          <div class="container">
+            <!-- Project cards with images -->
           <!-- Project Card #1 -->
           <figure>
             <img src="images/slotz.png" alt="first image to test that images work" width="300" height="200">
@@ -132,6 +140,7 @@ COMMENTS / NOTES:
             <img src="images/morsecode.png" alt="third image to test that images work" width="300" height="200">
             <figcaption>Arduino Morse Code</figcaption>
           </figure>
+          </div>
         </section>
 
         <!-- Table goes here -->
@@ -165,12 +174,14 @@ COMMENTS / NOTES:
             </tr>
           </tbody>
         </table>
+        </div>
       </section>
 
       <!-- Contact Section -->
       <section id="contact">
-        <!-- Contact info here -->
-        <h2>Contact Me</h2>
+        <div class="container">
+          <!-- Contact info here -->
+          <h2>Contact Me</h2>
         <form action="#" method="POST" id="contactForm">
           <!-- Form fields here -->
           <input type="text" name="name" placeholder="Your Name" required>
@@ -181,17 +192,20 @@ COMMENTS / NOTES:
             <legend>Project Details</legend>
             <!-- Select -->
             <section id="select-group">
-              <select name="projectType">
+              <div class="container">
+                <select name="projectType">
                 <option>Game</option>
                 <option>Application</option>
                 <option>Website</option>
                 <option>Other</option>
               </select>
+              </div>
             </section>
 
             <!-- Radios -->
             <section id="radios-group">
-              <!-- Radio #1 -->
+              <div class="container">
+                <!-- Radio #1 -->
               <input type="radio" id="budget1" name="budget">
               <label for="budget1">$1k-$5k</label>
               <!-- Radio #2 -->
@@ -200,6 +214,7 @@ COMMENTS / NOTES:
               <!-- Radio #3 -->
               <input type="radio" id="budget3" name="budget">
               <label for="budget3">$15k+</label>
+              </div>
             </section>
           </fieldset>
 
@@ -207,8 +222,10 @@ COMMENTS / NOTES:
             <legend>Preferences</legend>
             <!-- Newsletter -->
             <section id="newsletter">
-              <input type="checkbox" id="newsletter" name="newsletter">
+              <div class="container">
+                <input type="checkbox" id="newsletter" name="newsletter">
               <label for="newsletter">Subscribe to updates</label>
+              </div>
             </section>
           </fieldset>
 
@@ -221,6 +238,7 @@ COMMENTS / NOTES:
         <a href="tel:7327797919">Phone</a>
         <a href="javascript:window.print()">Print This Page</a>
         <a href="#" onclick="alert('Coming soon!'); return false;">Sign up for our newsletter</a>
+        </div>
       </section>
     </main>
 

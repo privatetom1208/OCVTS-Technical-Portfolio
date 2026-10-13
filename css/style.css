@@ -13,6 +13,7 @@ h1 {
 
 h2 {
   color: #1e40af;
+  margin-top: 0;
   margin-bottom: 20px;
   font-family: Georgia, serif;
 }
@@ -36,4 +37,38 @@ a:hover {
 
 a:visited {
   color: #b45309;
+}
+
+section {
+  padding: 60px 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+nav {
+  padding: 15px 0;
+}
+
+aside {
+  border-left: 4px solid #f59e0b;
+  padding-left: 20px;
+}
+
+.project-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+table {
+  border: 1px solid #cbd5e1;
+}
+
+img {
+  border-radius: 6px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
