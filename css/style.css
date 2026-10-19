@@ -63,6 +63,8 @@ aside {
 
 table {
   border: 1px solid #cbd5e1;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 img {
@@ -104,4 +106,66 @@ nav a {
 blockquote {
   font-style: italic;
   line-height: 1.8;
+}
+
+.skills-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.skills-list li {
+  background: var(--primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+.timeline { 
+  list-style: none; 
+  counter-reset: year;
+  padding-left: 0;
+} 
+
+.timeline li { 
+  position: relative;
+  padding-left: 40px; 
+  border-left: 3px solid var(--primary); 
+  margin-bottom: 20px;
+}
+
+.timeline li::before {
+  counter-increment: year;
+  content: counter(year);
+  position: absolute;
+  left: -14px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
 }
