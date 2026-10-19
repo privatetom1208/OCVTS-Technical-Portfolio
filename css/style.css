@@ -141,7 +141,7 @@ th, td {
 
 th {
   background: var(--primary);
-  color: white;
+  color: #475569;
 }
 
 tr:nth-child(even) {
