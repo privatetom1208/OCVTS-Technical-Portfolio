@@ -21,7 +21,7 @@ COMMENTS / NOTES:
     <script src="js/script.js" defer></script>
   </head>
 
-  <body>
+  <body class="dark-theme">
     <!-- Portfolio Website -->
     <main>
       <h1>Hello World</h1>
@@ -41,6 +41,7 @@ COMMENTS / NOTES:
             <a href="#about"><li>About</li></a>
             <a href="#projects"><li>Projects</li></a>
             <a href="#contact"><li>Contact</li></a>
+            <li><button id="themeToggle" type="button" aria-pressed="true">Switch to light mode</button></li>
           </ul>
         </nav>
       </header>
@@ -96,7 +97,7 @@ COMMENTS / NOTES:
           <h2>My Skills</h2>
         <!-- List goes here -->
         <h3>Technical Skills</h3>
-        <ul>
+        <ul id="skillsList">
           <li>Java</li>
           <li>Python</li>
           <li>
@@ -109,7 +110,6 @@ COMMENTS / NOTES:
           </li>
           <li>HTML</li>
           <li>CSS</li>
-          <li>JavaScript</li>
         </ul>
         <h3>Career Timeline</h3>
         <!-- Timeline list -->
@@ -125,27 +125,34 @@ COMMENTS / NOTES:
       <section id="projects">
         <div class="container">
           <h2>My Projects <span id="project-status-count" class="badge project-status-count"></span></h2>
+        <label for="projectFilter">Filter projects:</label>
+        <select id="projectFilter">
+          <option value="all">All</option>
+          <option value="web">Web</option>
+          <option value="app">App</option>
+        </select>
         <section class="projects-grid">
           <div class="container">
             <!-- Project cards with images -->
           <!-- Project Card #1 -->
-          <figure class="project-card">
+          <figure class="project-card" data-category="app">
             <span class="badge">Featured</span>
             <img src="images/slotz.png" alt="first image to test that images work" width="300" height="200">
             <figcaption>Slotz</figcaption>
           </figure>
           <!-- Project Card #2 -->
-          <figure class="project-card">
+          <figure class="project-card" data-category="app">
             <img src="images/zihh.png" alt="second image to test that images work" width="300" height="200">
             <figcaption>Zihh.</figcaption>
           </figure>
           <!-- Project Card #3 -->
-          <figure class="project-card">
+          <figure class="project-card" data-category="app">
             <img src="images/morsecode.png" alt="third image to test that images work" width="300" height="200">
             <figcaption>Arduino Morse Code</figcaption>
           </figure>
           </div>
         </section>
+        <p id="noProjectsMessage" hidden>No projects in this category yet.</p>
 
         <!-- Table goes here -->
         <table>

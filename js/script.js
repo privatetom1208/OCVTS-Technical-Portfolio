@@ -1,3 +1,103 @@
+// dark mode
+let isDark = localStorage.getItem('theme') !== 'light';
+document.body.classList.toggle('dark-theme', isDark);
+
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.textContent = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+themeToggle.setAttribute('aria-pressed', String(isDark));
+
+function toggleTheme() {
+    isDark = !isDark;
+    document.body.classList.toggle('dark-theme', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    themeToggle.textContent = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    themeToggle.setAttribute('aria-pressed', String(isDark));
+}
+
+themeToggle.addEventListener('click', toggleTheme);
+
+// extra skills
+const extraSkills = {
+    Frontend: ['JavaScript', 'React'],
+    Backend: ['Node.js'],
+    Tools: ['Git']
+};
+const skillsList = document.getElementById('skillsList');
+
+Object.entries(extraSkills).forEach(([category, skills]) => {
+    skills.forEach((skill) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${category}: ${skill}`;
+        skillsList.appendChild(listItem);
+    });
+});
+
+// project filters
+const projectFilters = {
+    all: () => true,
+    web: (card) => card.dataset.category === 'web',
+    app: (card) => card.dataset.category === 'app'
+};
+const projectCards = document.querySelectorAll('.project-card');
+const projectFilter = document.getElementById('projectFilter');
+const noProjectsMessage = document.getElementById('noProjectsMessage');
+const projectAnimations = new WeakMap();
+let selectedProjectCategory = 'all';
+
+function filterProjects(category) {
+    const activeCategory = Object.prototype.hasOwnProperty.call(projectFilters, category)
+        ? category
+        : 'all';
+    const matchesProject = projectFilters[activeCategory];
+    let matchingProjects = 0;
+    selectedProjectCategory = activeCategory;
+
+    projectCards.forEach((card) => {
+        const shouldShow = matchesProject(card);
+        const previousAnimation = projectAnimations.get(card);
+        if (previousAnimation) {
+            previousAnimation.cancel();
+        }
+
+        if (shouldShow) {
+            matchingProjects++;
+            const wasHidden = card.hidden;
+            card.hidden = false;
+            if (wasHidden || previousAnimation) {
+                const animation = card.animate(
+                    [
+                        { opacity: 0, transform: 'translateY(8px)' },
+                        { opacity: 1, transform: 'translateY(0)' }
+                    ],
+                    { duration: 200, easing: 'ease-out' }
+                );
+                projectAnimations.set(card, animation);
+                animation.onfinish = () => projectAnimations.delete(card);
+            }
+        } else if (!card.hidden) {
+            const animation = card.animate(
+                [
+                    { opacity: 1, transform: 'translateY(0)' },
+                    { opacity: 0, transform: 'translateY(8px)' }
+                ],
+                { duration: 200, easing: 'ease-in' }
+            );
+            projectAnimations.set(card, animation);
+            animation.onfinish = () => {
+                if (projectAnimations.get(card) === animation
+                    && selectedProjectCategory === activeCategory) {
+                    card.hidden = true;
+                    projectAnimations.delete(card);
+                }
+            };
+        }
+    });
+
+    noProjectsMessage.hidden = matchingProjects > 0;
+}
+
+projectFilter.addEventListener('change', () => filterProjects(projectFilter.value));
+
 // start timer
 console.time("Page Load Time");
 
