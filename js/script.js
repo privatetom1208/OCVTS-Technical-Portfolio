@@ -32,13 +32,26 @@ Object.entries(extraSkills).forEach(([category, skills]) => {
     });
 });
 
+const skills = {
+    frontend: ['HTML', 'CSS', 'JavaScript', 'React'],
+    backend: ['Node.js', 'Python', 'Java'],
+    tools: ['Git', 'Photoshop'],
+    listAll() {
+        return [...this.frontend, ...this.backend, ...this.tools];
+    }
+};
+
+console.log('Frontend skill count:', skills.frontend.length);
+skills.backend.push('Express.js');
+console.log('All skills:', skills.listAll());
+console.log('Skills JSON:', JSON.stringify(skills));
+
 // project filters
 const projectFilters = {
     all: () => true,
     web: (card) => card.dataset.category === 'web',
     app: (card) => card.dataset.category === 'app'
 };
-const projectCards = document.querySelectorAll('.project-card');
 const projectFilter = document.getElementById('projectFilter');
 const noProjectsMessage = document.getElementById('noProjectsMessage');
 const projectAnimations = new WeakMap();
@@ -51,6 +64,7 @@ function filterProjects(category) {
     const matchesProject = projectFilters[activeCategory];
     let matchingProjects = 0;
     selectedProjectCategory = activeCategory;
+    const projectCards = document.querySelectorAll('.project-card');
 
     projectCards.forEach((card) => {
         const shouldShow = matchesProject(card);
@@ -97,6 +111,66 @@ function filterProjects(category) {
 }
 
 projectFilter.addEventListener('change', () => filterProjects(projectFilter.value));
+
+const projects = [
+    {
+        title: 'Slotz',
+        tech: 'Python, Pygame',
+        image: 'images/slotz.png',
+        description: 'A game built with Python and Pygame.',
+        category: 'app',
+        featured: true,
+        year: 2026,
+        links: {
+            github: 'https://github.com/privatetom1208/Project-Month-Python---slotz',
+            live: ''
+        }
+    },
+    {
+        title: 'Zihh.',
+        tech: 'Java, Java Swing',
+        image: 'images/zihh.png',
+        description: 'A Java application built with Java Swing.',
+        category: 'app',
+        featured: false,
+        year: 2026,
+        links: {
+            github: 'https://github.com/privatetom1208/Project-Month-Java---zihh',
+            live: ''
+        }
+    },
+    {
+        title: 'Arduino Morse Code',
+        tech: 'C++, Arduino',
+        image: 'images/morsecode.png',
+        description: 'An Arduino project that works with Morse code.',
+        category: 'app',
+        featured: false,
+        year: 2026,
+        links: {
+            github: '',
+            live: ''
+        }
+    }
+];
+
+projects.sort((firstProject, secondProject) => firstProject.year - secondProject.year);
+console.log('Projects:', projects);
+console.log('Second project title:', projects[1].title);
+
+const projectsContainer = document.getElementById('projectsContainer');
+const featuredProjectHtml = projects
+    .filter((project) => project.featured)
+    .map((project) => `
+        <div class="project-card" data-category="${project.category}">
+            <img src="${project.image}" alt="${project.title}" width="300" height="200">
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <p><strong>Technologies:</strong> ${project.tech}</p>
+        </div>
+    `)
+    .join('');
+projectsContainer.innerHTML = featuredProjectHtml;
 
 // start timer
 console.time("Page Load Time");
