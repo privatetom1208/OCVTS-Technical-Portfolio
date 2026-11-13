@@ -68,6 +68,7 @@ function filterProjects(category) {
 
     projectCards.forEach((card) => {
         const shouldShow = matchesProject(card);
+        const projectItem = card.closest('.project-card-link') || card;
         const previousAnimation = projectAnimations.get(card);
         if (previousAnimation) {
             previousAnimation.cancel();
@@ -75,8 +76,8 @@ function filterProjects(category) {
 
         if (shouldShow) {
             matchingProjects++;
-            const wasHidden = card.hidden;
-            card.hidden = false;
+            const wasHidden = projectItem.hidden;
+            projectItem.hidden = false;
             if (wasHidden || previousAnimation) {
                 const animation = card.animate(
                     [
@@ -88,7 +89,7 @@ function filterProjects(category) {
                 projectAnimations.set(card, animation);
                 animation.onfinish = () => projectAnimations.delete(card);
             }
-        } else if (!card.hidden) {
+        } else if (!projectItem.hidden) {
             const animation = card.animate(
                 [
                     { opacity: 1, transform: 'translateY(0)' },
@@ -100,7 +101,7 @@ function filterProjects(category) {
             animation.onfinish = () => {
                 if (projectAnimations.get(card) === animation
                     && selectedProjectCategory === activeCategory) {
-                    card.hidden = true;
+                    projectItem.hidden = true;
                     projectAnimations.delete(card);
                 }
             };
@@ -158,20 +159,6 @@ projects.sort((firstProject, secondProject) => firstProject.year - secondProject
 console.log('Projects:', projects);
 console.log('Second project title:', projects[1].title);
 
-const projectsContainer = document.getElementById('projectsContainer');
-const featuredProjectHtml = projects
-    .filter((project) => project.featured)
-    .map((project) => `
-        <div class="project-card" data-category="${project.category}">
-            <img src="${project.image}" alt="${project.title}" width="300" height="200">
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-            <p><strong>Technologies:</strong> ${project.tech}</p>
-        </div>
-    `)
-    .join('');
-projectsContainer.innerHTML = featuredProjectHtml;
-
 // start timer
 console.time("Page Load Time");
 
@@ -183,16 +170,12 @@ console.warn("⚠️ Warning: Extreme talent and awesome projects ahead!");
 console.timeEnd("Page Load Time");
 
 // create getCurrentYear() function
-function getFullDate() {
-    return new Date().toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
-    });
+function getCurrentYear() {
+    return new Date().getFullYear();
 }
 
 const yearSpan = document.getElementById('year');
-yearSpan.textContent = getFullDate();
+yearSpan.textContent = getCurrentYear();
 
 // create sayHello() function
 function sayHello() {
@@ -229,21 +212,21 @@ function calculateExperience(startDate) {
 const experienceStartDate = new Date(2025, 8, 5);
 document.getElementById("expYears").textContent = calculateExperience(experienceStartDate);
 
-const certificationExpirationDate = new Date(2027, 5, 14, 23, 59, 59);
-function updateCertificationCountdown() {
-    const remainingSeconds = Math.max(0, Math.floor((certificationExpirationDate - new Date()) / 1000));
+const graduationDate = new Date(2027, 5, 14, 23, 59, 59);
+function updateGraduationCountdown() {
+    const remainingSeconds = Math.max(0, Math.floor((graduationDate - new Date()) / 1000));
     const days = Math.floor(remainingSeconds / 86400);
     const hours = Math.floor((remainingSeconds % 86400) / 3600);
     const minutes = Math.floor((remainingSeconds % 3600) / 60);
     const seconds = remainingSeconds % 60;
 
     document.getElementById("certificationCountdown").textContent = remainingSeconds === 0
-        ? "Expired"
+        ? "Graduated"
         : `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 }
 
-updateCertificationCountdown();
-setInterval(updateCertificationCountdown, 1000);
+updateGraduationCountdown();
+setInterval(updateGraduationCountdown, 1000);
 
 // 1. Select the table body and existing rows to count projects
 const tableBody = document.getElementById('projectTableBody');
@@ -262,17 +245,12 @@ function updateRowCount() {
   };
 
   for (const row of rows) {
-    switch (row.cells[3].textContent.trim()) {
-      case 'Live':
-        statusCounts.Live++;
-        break;
-      case 'Demo':
-        statusCounts.Demo++;
-        break;
-      case 'Open Source':
-        statusCounts['Open Source']++;
-        break;
-    }
+    const statuses = row.cells[3].textContent.split(',').map((status) => status.trim());
+    statuses.forEach((status) => {
+      if (Object.prototype.hasOwnProperty.call(statusCounts, status)) {
+        statusCounts[status]++;
+      }
+    });
   }
 
   console.log(`Row count: ${rows.length}`);
@@ -295,25 +273,27 @@ const observer = new MutationObserver((mutationsList) => {
 observer.observe(tableBody, { childList: true });
 
 function validateForm() {
-    const name = document.querySelector('#contactForm [name="name"]').value.trim();
-    const email = document.querySelector('#contactForm [name="email"]').value.trim();
-    const message = document.querySelector('#contactForm [name="message"]').value.trim();
+    const form = document.getElementById('contactForm');
+    const name = form.querySelector('[name="name"]').value.trim();
+    const emailField = form.querySelector('[name="email"]');
+    const email = emailField.value.trim();
+    const message = form.querySelector('[name="message"]').value.trim();
 
-    if (!name || !email) {
-        alert("Please fill in all fields");
+    if (!name) {
+        alert("Please enter your name.");
         return false;
     }
 
-    if (!email.includes("@") || !email.includes(".")) {
-        alert("Please enter a valid email address");
+    if (!email || !emailField.validity.valid) {
+        alert("Please enter a valid email address.");
         return false;
     }
 
     if (message.length < 10) {
-        alert("Message must be at least 10 characters long");
+        alert("Message must be at least 10 characters long.");
         return false;
     }
 
-    alert("Message sent!");
+    alert("This demo form isn't connected to a message service yet.");
     return false;
 }

@@ -21,11 +21,9 @@ COMMENTS / NOTES:
     <script src="js/script.js" defer></script>
   </head>
 
-  <body class="dark-theme">
+  <body id="top" class="dark-theme">
     <!-- Portfolio Website -->
     <main>
-      <h1>Hello World</h1>
-
       <!-- Add sections here -->
 
       <!-- Header / Hero Section -->
@@ -38,9 +36,9 @@ COMMENTS / NOTES:
         <!-- Navigation -->
         <nav>
           <ul>
-            <a href="#about"><li>About</li></a>
-            <a href="#projects"><li>Projects</li></a>
-            <a href="#contact"><li>Contact</li></a>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li><button id="themeToggle" type="button" aria-pressed="true">Switch to light mode</button></li>
           </ul>
         </nav>
@@ -50,44 +48,32 @@ COMMENTS / NOTES:
       <section id="about">
         <div class="container">
           <h2>About Me</h2>
-        <section id="about-content">
-          <div class="container">
+          <div id="about-content">
             <!-- Add paragraphs here -->
-          <p>My name is <strong>Thomas Mairella</strong>, and I am a Computer Science student.</p>
-          <p>I have a passion for <em>creating</em> and just love anything related to computers.</p>
-          <p>When I'm not coding, you can find me exploring new<br>technologies or contributing to open-source projects.</p>
+            <p>My name is <strong>Thomas Mairella</strong>, and I am a Computer Science student.</p>
+            <p>I have a passion for <em>creating</em> and just love anything related to computers.</p>
+            <p>When I'm not coding, you can find me exploring new<br>technologies or contributing to open-source projects.</p>
 
-          <!-- existing content -->
-          <p>My Philosophy.</p>
-          <blockquote>"It does not matter how slowly you go as long as you do not stop."</blockquote>
-          <cite>- Confucius</cite>
+            <!-- existing content -->
+            <p>My Philosophy.</p>
+            <blockquote>"It does not matter how slowly you go as long as you do not stop."</blockquote>
+            <cite>- Confucius</cite>
 
-          <aside>
-            <h3>Quick Facts</h3>
-            <p>Location: Toms River, NJ</p>
-            <p>Availability: Contact me for hours</p>
-            <p>Favorite Editor: Visual Studio Code</p>
-          </aside>
+            <aside>
+              <h3>Quick Facts</h3>
+              <p>Location: Toms River, NJ</p>
+              <p>Availability: Contact me for hours</p>
+              <p>Favorite Editor: Visual Studio Code</p>
+            </aside>
 
-          <!-- Image goes here -->
-          <figure>
-            <img src="images/picofme.jpg" alt="a picture of me (thomas Mairella)" width="400" height="400">
-            <figcaption>Thomas Mairella, Computer Science student</figcaption>
-          </figure>
-          <p>Experience: <span id="expYears">0</span></p>
-          <p>Certification expires in: <span id="certificationCountdown">Loading...</span></p>
+            <!-- Image goes here -->
+            <figure>
+              <img src="images/picofme.jpg" alt="a picture of me (thomas Mairella)" width="400" height="400">
+              <figcaption>Thomas Mairella, Computer Science student</figcaption>
+            </figure>
+            <p>Experience: <span id="expYears">0</span></p>
+            <p>Graduates in: <span id="certificationCountdown">Loading...</span></p>
           </div>
-        </section>
-
-        <!-- Media embed goes here -->
-        <video controls width="320" poster="https://peach.blender.org/wp-content/uploads/watchtrailer.gif">
-          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <audio controls>
-          <source src="https://www.w3schools.com/html/horse.ogg" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
         </div>
       </section>
 
@@ -95,29 +81,29 @@ COMMENTS / NOTES:
       <section id="skills">
         <div class="container">
           <h2>My Skills</h2>
-        <!-- List goes here -->
-        <h3>Technical Skills</h3>
-        <ul id="skillsList">
-          <li>Java</li>
-          <li>Python</li>
-          <li>
-            Adobe Photoshop
-            <ul>
-              <li>Working with layers</li>
-              <li>Making basic edits</li>
-              <li>Able to color adjust images</li>
-            </ul>
-          </li>
-          <li>HTML</li>
-          <li>CSS</li>
-        </ul>
-        <h3>Career Timeline</h3>
-        <!-- Timeline list -->
-        <ol>
-          <li>Goes to OCVTS for <strong>Comp. Sci <em>2025-PRESENT</em></strong> (Worked in Java, Python, Web Page.)</li>
-          <li>Goes to TRHSN for <strong>Digital Arts Academy <em>2023-PRESENT</em></strong> (Worked in Photoshop, Web Page, Unreal & Unity.)</li>
-          <li>Worked at <strong>Windjammer Motor Inn <em>2025-PRESENT</em></strong> (Worked as a busser and dishwasher.)</li>
-        </ol>
+          <!-- List goes here -->
+          <h3>Technical Skills</h3>
+          <ul id="skillsList">
+            <li>Java</li>
+            <li>Python</li>
+            <li>
+              Adobe Photoshop
+              <ul>
+                <li>Working with layers</li>
+                <li>Making basic edits</li>
+                <li>Able to color adjust images</li>
+              </ul>
+            </li>
+            <li>HTML</li>
+            <li>CSS</li>
+          </ul>
+          <h3>Career Timeline</h3>
+          <!-- Timeline list -->
+          <ol>
+            <li>Goes to OCVTS for <strong>Comp. Sci <em>2025-PRESENT</em></strong> (Worked in Java, Python, Web Page.)</li>
+            <li>Goes to TRHSN for <strong>Digital Arts Academy <em>2023-PRESENT</em></strong> (Worked in Photoshop, Web Page, Unreal & Unity.)</li>
+            <li>Worked at <strong>Windjammer Motor Inn <em>2025-PRESENT</em></strong> (Worked as a busser and dishwasher.)</li>
+          </ol>
         </div>
       </section>
 
@@ -125,67 +111,68 @@ COMMENTS / NOTES:
       <section id="projects">
         <div class="container">
           <h2>My Projects <span id="project-status-count" class="badge project-status-count"></span></h2>
-        <label for="projectFilter">Filter projects:</label>
-        <select id="projectFilter">
-          <option value="all">All</option>
-          <option value="web">Web</option>
-          <option value="app">App</option>
-        </select>
-        <section class="projects-grid">
-          <div class="container">
+          <label for="projectFilter">Filter projects:</label>
+          <select id="projectFilter">
+            <option value="all">All</option>
+            <option value="web">Web</option>
+            <option value="app">App</option>
+          </select>
+          <div class="projects-grid">
             <!-- Project cards with images -->
-          <!-- Project Card #1 -->
-          <figure class="project-card" data-category="app">
-            <span class="badge">Featured</span>
-            <img src="images/slotz.png" alt="first image to test that images work" width="300" height="200">
-            <figcaption>Slotz</figcaption>
-          </figure>
-          <!-- Project Card #2 -->
-          <figure class="project-card" data-category="app">
-            <img src="images/zihh.png" alt="second image to test that images work" width="300" height="200">
-            <figcaption>Zihh.</figcaption>
-          </figure>
-          <!-- Project Card #3 -->
-          <figure class="project-card" data-category="app">
-            <img src="images/morsecode.png" alt="third image to test that images work" width="300" height="200">
-            <figcaption>Arduino Morse Code</figcaption>
-          </figure>
+            <!-- Project Card #1 -->
+            <a class="project-card-link" href="https://github.com/privatetom1208/Project-Month-Python---slotz" target="_blank" rel="noopener noreferrer">
+              <figure class="project-card" data-category="app">
+                <span class="badge">Featured</span>
+                <img src="images/slotz.png" alt="Slotz game screenshot" width="300" height="200">
+                <figcaption>Slotz</figcaption>
+              </figure>
+            </a>
+            <!-- Project Card #2 -->
+            <a class="project-card-link" href="https://github.com/privatetom1208/Project-Month-Java---zihh" target="_blank" rel="noopener noreferrer">
+              <figure class="project-card" data-category="app">
+                <img src="images/zihh.png" alt="Zihh application screenshot" width="300" height="200">
+                <figcaption>Zihh.</figcaption>
+              </figure>
+            </a>
+            <!-- Project Card #3 -->
+            <figure class="project-card" data-category="app">
+              <img src="images/morsecode.png" alt="Arduino Morse Code project" width="300" height="200">
+              <figcaption>Arduino Morse Code</figcaption>
+            </figure>
           </div>
-        </section>
-        <div id="projectsContainer"></div>
-        <p id="noProjectsMessage" hidden>No projects in this category yet.</p>
+          <p id="noProjectsMessage" hidden>No projects in this category yet.</p>
 
-        <!-- Table goes here -->
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Technologies</th>
-              <th>Year</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="projectTableBody">
-            <tr>
-              <td>Slotz</td>
-              <td>Python, Pygame</td>
-              <td>2026</td>
-              <td>Completed</td>
-            </tr>
-            <tr>
-              <td>Zihh.</td>
-              <td>Java, Java Swing</td>
-              <td>2026</td>
-              <td>Completed</td>
-            </tr>
-            <tr>
-              <td>Arduino Morse Code</td>
-              <td>C++, Arduino</td>
-              <td>2026</td>
-              <td>Completed</td>
-            </tr>
-          </tbody>
-        </table>
+          <!-- Table goes here -->
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Technologies</th>
+                <th>Year</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="projectTableBody">
+              <tr>
+                <td>Slotz</td>
+                <td>Python, Pygame</td>
+                <td>2026</td>
+                <td>Demo, Open Source</td>
+              </tr>
+              <tr>
+                <td>Zihh.</td>
+                <td>Java, Java Swing</td>
+                <td>2026</td>
+                <td>Demo, Open Source</td>
+              </tr>
+              <tr>
+                <td>Arduino Morse Code</td>
+                <td>C++, Arduino</td>
+                <td>2026</td>
+                <td>Demo</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -194,77 +181,67 @@ COMMENTS / NOTES:
         <div class="container">
           <!-- Contact info here -->
           <h2>Contact Me</h2>
-        <form action="#" method="POST" id="contactForm" onsubmit="return validateForm()">
-          <!-- Form fields here -->
-          <input type="text" name="name" placeholder="Your Name">
-          <input type="email" name="email" placeholder="Your Email">
-          <textarea name="message" rows="5" placeholder="Your Message"></textarea>
+          <form action="#" method="POST" id="contactForm" onsubmit="return validateForm()">
+            <!-- Form fields here -->
+            <label for="contactName">Your name</label>
+            <input type="text" id="contactName" name="name" placeholder="Your Name" required>
+            <label for="contactEmail">Your email</label>
+            <input type="email" id="contactEmail" name="email" placeholder="Your Email" required>
+            <label for="contactMessage">Your message</label>
+            <textarea id="contactMessage" name="message" rows="1" cols="20" placeholder="Your Message" minlength="10" required></textarea>
 
-          <fieldset>
-            <legend>Project Details</legend>
-            <!-- Select -->
-            <section id="select-group">
-              <div class="container">
-                <select name="projectType">
+            <fieldset>
+              <legend>Project Details</legend>
+              <!-- Select -->
+              <label for="projectType">Project type</label>
+              <select id="projectType" name="projectType">
                 <option>Game</option>
                 <option>Application</option>
                 <option>Website</option>
                 <option>Other</option>
               </select>
-              </div>
-            </section>
 
-            <!-- Radios -->
-            <section id="radios-group">
-              <div class="container">
+              <!-- Radios -->
+              <div>
                 <!-- Radio #1 -->
-              <input type="radio" id="budget1" name="budget">
-              <label for="budget1">$1k-$5k</label>
-              <!-- Radio #2 -->
-              <input type="radio" id="budget2" name="budget">
-              <label for="budget2">$5k-$15k</label>
-              <!-- Radio #3 -->
-              <input type="radio" id="budget3" name="budget">
-              <label for="budget3">$15k+</label>
+                <input type="radio" id="budget1" name="budget" value="1000-5000">
+                <label for="budget1">$1k-$5k</label>
+                <!-- Radio #2 -->
+                <input type="radio" id="budget2" name="budget" value="5000-15000">
+                <label for="budget2">$5k-$15k</label>
+                <!-- Radio #3 -->
+                <input type="radio" id="budget3" name="budget" value="15000-plus">
+                <label for="budget3">$15k+</label>
               </div>
-            </section>
-          </fieldset>
+            </fieldset>
 
-          <fieldset>
-            <legend>Preferences</legend>
-            <!-- Newsletter -->
-            <section id="newsletter">
-              <div class="container">
-                <input type="checkbox" id="newsletter" name="newsletter">
-              <label for="newsletter">Subscribe to updates</label>
-              </div>
-            </section>
-          </fieldset>
+            <fieldset>
+              <legend>Preferences</legend>
+              <!-- Newsletter -->
+              <input type="checkbox" id="newsletterUpdates" name="newsletter">
+              <label for="newsletterUpdates">Subscribe to updates</label>
+            </fieldset>
 
-          <button type="submit">Send Message 🚀</button>
-          <button type="button">Clear Form</button>
-          <button type="button" onclick="window.print()">Print</button>
-        </form>
-
-        <a href="mailto:thomas.mairella@gmail.com">Email</a>
-        <a href="tel:7327797919">Phone</a>
-        <a href="javascript:window.print()">Print This Page</a>
-        <a href="#" onclick="alert('Coming soon!'); return false;">Sign up for our newsletter</a>
+            <button type="submit">Send Message 🚀</button>
+            <button type="reset">Clear Form</button>
+          </form>
         </div>
       </section>
     </main>
-    <button id="backToTop"><a href="#top">&#8679;</a></button>
+    <a id="backToTop" href="#top" aria-label="Back to top">&#8679;</a>
     <!-- buttons for 15.3 -->
-      <form onsubmit="return false;">
-        <button type="button" id="btn-hello">Click Me</button>
-        <button type="button" id="btn-print">Print Page</button>
-        <button type="button" id="btn-clear">Clear Console</button>
-      </form>
+    <form onsubmit="return false;">
+      <button type="button" id="btn-hello">Click Me</button>
+      <button type="button" id="btn-print">Print Page</button>
+      <button type="button" id="btn-clear">Clear Console</button>
+    </form>
     <!-- Footer -->
     <footer>
       <!-- Social links here -->
       <a href="https://github.com/privatetom1208" target="_blank" rel="noopener noreferrer">Github</a>
       <a href="https://www.linkedin.com/in/thomas-mairella/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:thomas.mairella@gmail.com">Email</a>
+      <a href="tel:7327797919">Phone</a>
       <span id="year">2026</span>
     </footer>
   </body>
