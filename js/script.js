@@ -32,6 +32,70 @@ window.addEventListener('scroll', updateScrollProgress);
 window.addEventListener('resize', updateScrollProgress);
 updateScrollProgress();
 
+const nav = document.querySelector('nav');
+const navLinks = Array.from(nav.querySelectorAll('a[href^="#"]'));
+const navIndicator = document.getElementById('navIndicator');
+const navSections = navLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter((section) => section);
+const intersectingNavSections = new Map();
+let activeNavLink = null;
+let navSectionOrder = 0;
+
+function moveNavIndicator(link) {
+    const navBounds = nav.getBoundingClientRect();
+    const linkBounds = link.getBoundingClientRect();
+    navIndicator.style.width = `${linkBounds.width}px`;
+    navIndicator.style.top = `${linkBounds.bottom - navBounds.top + 2}px`;
+    navIndicator.style.transform = `translateX(${linkBounds.left - navBounds.left}px)`;
+}
+
+function setActiveNavLink(section) {
+    activeNavLink = navLinks.find((link) => link.hash === `#${section.id}`);
+    if (!activeNavLink) {
+        return;
+    }
+
+    navLinks.forEach((link) => {
+        link.classList.toggle('active', link === activeNavLink);
+    });
+    moveNavIndicator(activeNavLink);
+}
+
+function clearActiveNavLink() {
+    activeNavLink = null;
+    navLinks.forEach((link) => link.classList.remove('active'));
+    navIndicator.style.width = '0';
+}
+
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            intersectingNavSections.set(entry.target, ++navSectionOrder);
+        } else {
+            intersectingNavSections.delete(entry.target);
+        }
+    });
+
+    const activeSection = Array.from(intersectingNavSections.entries())
+        .sort((first, second) => second[1] - first[1])[0];
+    if (activeSection) {
+        setActiveNavLink(activeSection[0]);
+    } else {
+        clearActiveNavLink();
+    }
+}, {
+    rootMargin: '-50px 0px -60% 0px',
+    threshold: 0
+});
+
+navSections.forEach((section) => navObserver.observe(section));
+window.addEventListener('resize', () => {
+    if (activeNavLink) {
+        moveNavIndicator(activeNavLink);
+    }
+});
+
 // extra skills
 const extraSkills = {
     Frontend: ['JavaScript', 'React'],
@@ -70,6 +134,8 @@ const projectFilters = {
 };
 const projectFilter = document.getElementById('projectFilter');
 const noProjectsMessage = document.getElementById('noProjectsMessage');
+const projectsContainer = document.getElementById('projectsContainer');
+const loadMoreButton = document.getElementById('loadMoreProjects');
 const projectAnimations = new WeakMap();
 let selectedProjectCategory = 'all';
 
@@ -124,7 +190,7 @@ function filterProjects(category) {
         }
     });
 
-    noProjectsMessage.hidden = matchingProjects > 0;
+    noProjectsMessage.hidden = matchingProjects > 0 || !loadMoreButton.hidden;
 }
 
 projectFilter.addEventListener('change', () => filterProjects(projectFilter.value));
@@ -175,6 +241,140 @@ projects.sort((firstProject, secondProject) => firstProject.year - secondProject
 console.log('Projects:', projects);
 console.log('Second project title:', projects[1].title);
 
+let renderedProjectCount = 0;
+const projectsPerLoad = 3;
+
+function createProjectCard(project) {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.dataset.category = project.category;
+    card.dataset.projectTitle = project.title;
+    let projectItem = card;
+
+    if (project.links.github) {
+        const projectLink = document.createElement('a');
+        projectLink.className = 'project-card-link';
+        projectLink.href = project.links.github;
+        projectLink.target = '_blank';
+        projectLink.rel = 'noopener noreferrer';
+        projectLink.draggable = true;
+        projectLink.appendChild(card);
+        card.draggable = false;
+        projectItem = projectLink;
+    } else {
+        card.draggable = true;
+    }
+
+    if (project.featured) {
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = 'Featured';
+        card.appendChild(badge);
+    }
+
+    const image = document.createElement('img');
+    image.src = project.image;
+    image.alt = `${project.title} project screenshot`;
+    image.width = 300;
+    image.height = 200;
+    card.appendChild(image);
+
+    const title = document.createElement('h3');
+    title.textContent = project.title;
+    card.appendChild(title);
+
+    const description = document.createElement('p');
+    description.textContent = project.description;
+    card.appendChild(description);
+
+    return projectItem;
+}
+
+function loadMoreProjects() {
+    const nextProjects = projects.slice(
+        renderedProjectCount,
+        renderedProjectCount + projectsPerLoad
+    );
+
+    nextProjects.forEach((project) => {
+        projectsContainer.appendChild(createProjectCard(project));
+    });
+
+    renderedProjectCount += nextProjects.length;
+    loadMoreButton.hidden = renderedProjectCount >= projects.length;
+    filterProjects(projectFilter.value);
+}
+
+function updateProjectOrder() {
+    const reorderedProjects = Array.from(projectsContainer.children).map((item) => {
+        const card = item.matches('.project-card') ? item : item.querySelector('.project-card');
+        const title = card.dataset.projectTitle;
+        return projects.find((project) => project.title === title);
+    });
+
+    projects.splice(0, renderedProjectCount, ...reorderedProjects);
+}
+
+let draggedProject = null;
+
+projectsContainer.addEventListener('dragstart', (event) => {
+    const projectItem = event.target.closest('.project-card-link')
+        || event.target.closest('.project-card');
+    if (!projectItem) {
+        return;
+    }
+
+    const card = projectItem.matches('.project-card')
+        ? projectItem
+        : projectItem.querySelector('.project-card');
+    draggedProject = projectItem;
+    draggedProject.classList.add('dragging');
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', card.dataset.projectTitle);
+});
+
+projectsContainer.addEventListener('dragover', (event) => {
+    if (!draggedProject) {
+        return;
+    }
+
+    const targetProject = event.target.closest('.project-card-link')
+        || event.target.closest('.project-card');
+    if (!targetProject) {
+        return;
+    }
+
+    event.preventDefault();
+    if (targetProject === draggedProject) {
+        return;
+    }
+
+    const bounds = targetProject.getBoundingClientRect();
+    const insertAfter = event.clientY > bounds.top + bounds.height / 2
+        || (event.clientY >= bounds.top && event.clientX > bounds.left + bounds.width / 2);
+
+    projectsContainer.insertBefore(
+        draggedProject,
+        insertAfter ? targetProject.nextSibling : targetProject
+    );
+});
+
+projectsContainer.addEventListener('drop', (event) => {
+    event.preventDefault();
+    updateProjectOrder();
+});
+
+projectsContainer.addEventListener('dragend', () => {
+    if (draggedProject) {
+        draggedProject.classList.remove('dragging');
+        draggedProject = null;
+        updateProjectOrder();
+    }
+});
+
+loadMoreButton.addEventListener('click', loadMoreProjects);
+loadMoreProjects();
+
 let lastFeaturedProject = localStorage.getItem('lastFeaturedProject');
 
 function showRandomProject() {
@@ -214,7 +414,7 @@ const yearSpan = document.getElementById('year');
 yearSpan.textContent = getCurrentYear();
 
 // Update this timestamp whenever the site content changes.
-const lastUpdated = new Date('2026-11-16T16:55:26.828Z');
+const lastUpdated = new Date('2026-11-16T17:38:08.646Z');
 const pageStartedAt = new Date();
 const formattedDate = lastUpdated.toLocaleDateString('en-US', {
     month: 'long',
@@ -395,6 +595,30 @@ const observer = new MutationObserver((mutationsList) => {
 });
 
 observer.observe(tableBody, { childList: true });
+
+const contactForm = document.getElementById('contactForm');
+const contactMessage = document.getElementById('contactMessage');
+const charCount = document.getElementById('charCount');
+const messageProgress = document.getElementById('messageProgress');
+const submitButton = contactForm.querySelector('[type="submit"]');
+
+function updateMessageCount() {
+    const messageLength = contactMessage.value.length;
+    charCount.textContent = messageLength;
+    charCount.classList.toggle('near-limit', messageLength > 450);
+    messageProgress.value = messageLength;
+    messageProgress.setAttribute(
+        'aria-valuetext',
+        `${messageLength} of ${contactMessage.maxLength} characters`
+    );
+    submitButton.disabled = messageLength >= contactMessage.maxLength;
+}
+
+contactMessage.addEventListener('input', updateMessageCount);
+contactForm.addEventListener('reset', () => {
+    setTimeout(updateMessageCount, 0);
+});
+updateMessageCount();
 
 function standardizeName(rawInput) {
     const trimmedInput = rawInput.trim();

@@ -101,9 +101,23 @@ nav {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+#navIndicator {
+  position: absolute;
+  left: 0;
+  height: 2px;
+  background-color: var(--accent);
+  pointer-events: none;
+  transition: top 0.2s ease, width 0.2s ease, transform 0.2s ease;
+}
+
 nav a,
 nav a:visited {
   color: #f8fafc;
+}
+
+nav a.active,
+nav a.active:visited {
+  color: var(--accent);
 }
 
 nav a:hover {
@@ -142,6 +156,25 @@ aside {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.project-card h3 {
+  margin: 12px;
+}
+
+.project-card p {
+  margin: 0 12px 12px;
+}
+
+.project-card[draggable="true"],
+.project-card-link[draggable="true"] {
+  cursor: grab;
+}
+
+.project-card.dragging,
+.project-card-link.dragging {
+  cursor: grabbing;
+  opacity: 0.5;
 }
 
 .project-card:hover {
@@ -290,6 +323,38 @@ body.dark-theme .project-card-link:hover {
 
 #contactForm textarea[name="message"] {
   vertical-align: top;
+}
+
+.message-limit {
+  margin: 4px 0 16px;
+}
+
+.message-limit p {
+  margin: 0;
+  text-align: right;
+}
+
+#messageProgress {
+  display: block;
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+#charCount.near-limit {
+  color: #b91c1c;
+}
+
+body.dark-theme #charCount.near-limit {
+  color: #fca5a5;
+}
+
+#contactForm button[type="submit"]:disabled,
+#contactForm button[type="submit"]:disabled:hover {
+  background-color: #e2e8f0;
+  color: #475569;
+  cursor: not-allowed;
+  opacity: 1;
+  transform: none;
 }
 
 header {
@@ -513,6 +578,21 @@ body.dark-theme nav a:visited {
 
 body.dark-theme nav a:hover {
   color: #f59e0b;
+}
+
+body.dark-theme nav a.active,
+body.dark-theme nav a.active:visited {
+  color: var(--accent);
+}
+
+body.dark-theme #messageProgress {
+  accent-color: #93c5fd;
+}
+
+body.dark-theme #contactForm button[type="submit"]:disabled,
+body.dark-theme #contactForm button[type="submit"]:disabled:hover {
+  background-color: #334155;
+  color: #cbd5e1;
 }
 
 body.dark-theme tr:nth-child(even),

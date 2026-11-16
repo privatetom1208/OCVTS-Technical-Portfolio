@@ -55,6 +55,7 @@ COMMENTS / NOTES:
             <li><a href="#contact">Contact</a></li>
             <li><button id="themeToggle" type="button" aria-pressed="true">Switch to light mode</button></li>
           </ul>
+          <span id="navIndicator" aria-hidden="true"></span>
         </nav>
       </header>
 
@@ -132,29 +133,8 @@ COMMENTS / NOTES:
             <option value="web">Web</option>
             <option value="app">App</option>
           </select>
-          <div class="projects-grid">
-            <!-- Project cards with images -->
-            <!-- Project Card #1 -->
-            <a class="project-card-link" href="https://github.com/privatetom1208/Project-Month-Python---slotz" target="_blank" rel="noopener noreferrer">
-              <figure class="project-card" data-category="app">
-                <span class="badge">Featured</span>
-                <img src="images/slotz.png" alt="Slotz game screenshot" width="300" height="200">
-                <figcaption>Slotz</figcaption>
-              </figure>
-            </a>
-            <!-- Project Card #2 -->
-            <a class="project-card-link" href="https://github.com/privatetom1208/Project-Month-Java---zihh" target="_blank" rel="noopener noreferrer">
-              <figure class="project-card" data-category="app">
-                <img src="images/zihh.png" alt="Zihh application screenshot" width="300" height="200">
-                <figcaption>Zihh.</figcaption>
-              </figure>
-            </a>
-            <!-- Project Card #3 -->
-            <figure class="project-card" data-category="app">
-              <img src="images/morsecode.png" alt="Arduino Morse Code project" width="300" height="200">
-              <figcaption>Arduino Morse Code</figcaption>
-            </figure>
-          </div>
+          <div class="projects-grid" id="projectsContainer"></div>
+          <button type="button" id="loadMoreProjects" hidden>Load More</button>
           <p id="noProjectsMessage" hidden>No projects in this category yet.</p>
 
           <!-- Table goes here -->
@@ -203,7 +183,13 @@ COMMENTS / NOTES:
             <label for="contactEmail">Your email</label>
             <input type="email" id="contactEmail" name="email" placeholder="Your Email" required>
             <label for="contactMessage">Your message</label>
-            <textarea id="contactMessage" name="message" rows="1" cols="20" placeholder="Your Message" minlength="10" required></textarea>
+            <textarea id="contactMessage" name="message" rows="1" cols="20"
+              placeholder="Your Message" minlength="10" maxlength="500"
+              aria-describedby="messageCount messageProgress" required></textarea>
+            <div class="message-limit">
+              <p id="messageCount"><span id="charCount">0</span> / 500</p>
+              <progress id="messageProgress" value="0" max="500" aria-label="Message length"></progress>
+            </div>
 
             <fieldset>
               <legend>Project Details</legend>
