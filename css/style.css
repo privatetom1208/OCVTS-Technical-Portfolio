@@ -59,6 +59,22 @@ section {
   border-bottom: 1px solid #e2e8f0;
 }
 
+#featured-project-banner {
+  margin-bottom: 20px;
+  padding: 18px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--dark);
+  text-align: center;
+}
+
+#featured-project-banner p,
+#featured-project-banner h2 {
+  margin: 0;
+  color: var(--dark);
+}
+
 nav {
   padding: 15px 0;
   position: fixed;
@@ -266,8 +282,31 @@ header {
   color: #ffffff;
 }
 
+header h1,
+header h2 {
+  color: #ffffff;
+}
+
 footer {
-  background: var(--dark);
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+footer a,
+footer a:visited {
+  color: #1e40af;
+}
+
+footer a:hover {
+  color: #b45309;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  background-color: #ffffff;
+  color: #1e293b;
 }
 
 button {
@@ -276,6 +315,7 @@ button {
 
 button:hover {
   background: #333ba2;
+  color: #ffffff;
   transform: scale(1.05);
 }
 
@@ -358,6 +398,35 @@ nav li {
 body.dark-theme {
   background: #1e293b;
   color: #f8fafc;
+}
+
+body.dark-theme footer {
+  background: var(--dark);
+  color: #f8fafc;
+}
+
+body.dark-theme footer a,
+body.dark-theme footer a:visited {
+  color: #93c5fd;
+}
+
+body.dark-theme footer a:hover {
+  color: #fbbf24;
+}
+
+body.dark-theme input[type="text"],
+body.dark-theme input[type="email"],
+body.dark-theme textarea,
+body.dark-theme select {
+  background-color: #334155;
+  border-color: #64748b;
+  color: #f8fafc;
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+  color: #cbd5e1;
+  opacity: 1;
 }
 
 body.dark-theme h1,

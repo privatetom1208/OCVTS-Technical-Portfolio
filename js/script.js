@@ -159,6 +159,26 @@ projects.sort((firstProject, secondProject) => firstProject.year - secondProject
 console.log('Projects:', projects);
 console.log('Second project title:', projects[1].title);
 
+let lastFeaturedProject = localStorage.getItem('lastFeaturedProject');
+
+function showRandomProject() {
+    let index = Math.floor(Math.random() * projects.length);
+
+    while (projects.length > 1 && projects[index].title === lastFeaturedProject) {
+        index = Math.floor(Math.random() * projects.length);
+    }
+
+    const featuredProject = projects[index];
+    document.getElementById('featured-project-title').textContent = featuredProject.title;
+    document.getElementById('featured-project-description').textContent = featuredProject.description;
+    console.log("Today's featured project: " + featuredProject.title);
+
+    lastFeaturedProject = featuredProject.title;
+    localStorage.setItem('lastFeaturedProject', lastFeaturedProject);
+}
+
+showRandomProject();
+
 // start timer
 console.time("Page Load Time");
 
@@ -176,6 +196,47 @@ function getCurrentYear() {
 
 const yearSpan = document.getElementById('year');
 yearSpan.textContent = getCurrentYear();
+
+// Update this timestamp whenever the site content changes.
+const lastUpdated = new Date('2026-11-16T11:29:20-05:00');
+const pageStartedAt = new Date();
+const formattedDate = lastUpdated.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+});
+document.getElementById('lastUpdated').textContent = formattedDate;
+
+function formatDuration(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const timeParts = [];
+
+    if (hours > 0) {
+        timeParts.push(`${hours} ${hours === 1 ? 'hour' : 'hours'}`);
+    }
+
+    if (minutes > 0 || hours > 0) {
+        timeParts.push(`${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`);
+    }
+
+    timeParts.push(`${seconds} ${seconds === 1 ? 'second' : 'seconds'}`);
+    return timeParts.join(', ');
+}
+
+function updateTimeOnSite() {
+    const timeSinceUpdate = Math.max(0, Math.floor((Date.now() - lastUpdated.getTime()) / 1000));
+    const timeOnSite = Math.floor((Date.now() - pageStartedAt.getTime()) / 1000);
+
+    document.getElementById('relativeUpdated').textContent = timeSinceUpdate === 0
+        ? 'Updated just now'
+        : `Updated ${formatDuration(timeSinceUpdate)} ago`;
+    document.getElementById('timeOnSite').textContent = formatDuration(timeOnSite);
+}
+
+updateTimeOnSite();
+setInterval(updateTimeOnSite, 1000);
 
 // create sayHello() function
 function sayHello() {
@@ -272,15 +333,40 @@ const observer = new MutationObserver((mutationsList) => {
 
 observer.observe(tableBody, { childList: true });
 
+function standardizeName(rawInput) {
+    const trimmedInput = rawInput.trim();
+    console.log('After trimming:', trimmedInput);
+
+    const lowercaseInput = trimmedInput.toLowerCase();
+    console.log('After lowercasing:', lowercaseInput);
+
+    const cleanedInput = lowercaseInput.replace(/[0-9]/g, '');
+    console.log('After removing numbers:', cleanedInput);
+
+    const capitalizedInput = cleanedInput.split(' ').map((word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+    console.log('Standardized name:', capitalizedInput);
+
+    return capitalizedInput;
+}
+
 function validateForm() {
     const form = document.getElementById('contactForm');
-    const name = form.querySelector('[name="name"]').value.trim();
+    const nameField = form.querySelector('[name="name"]');
+    nameField.value = standardizeName(nameField.value);
+    const name = nameField.value;
     const emailField = form.querySelector('[name="email"]');
     const email = emailField.value.trim();
     const message = form.querySelector('[name="message"]').value.trim();
 
     if (!name) {
         alert("Please enter your name.");
+        return false;
+    }
+
+    if (!/^[A-Za-z ]+$/.test(name)) {
+        alert("Your name can only contain letters and spaces.");
         return false;
     }
 
@@ -294,6 +380,17 @@ function validateForm() {
         return false;
     }
 
-    alert("This demo form isn't connected to a message service yet.");
+    const budgetField = form.querySelector('[name="budget"]:checked');
+    const formInformation = {
+        name: name,
+        email: email,
+        message: message,
+        projectType: form.querySelector('[name="projectType"]').value,
+        budget: budgetField ? budgetField.value : 'Not selected',
+        newsletter: form.querySelector('[name="newsletter"]').checked
+    };
+
+    console.log('Contact form submission:', formInformation);
+    alert('Your form information was printed to the console.');
     return false;
 }
