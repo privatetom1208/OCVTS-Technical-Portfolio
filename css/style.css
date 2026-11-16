@@ -57,6 +57,21 @@ section {
   padding: 60px 0;
   margin-bottom: 0;
   border-bottom: 1px solid #e2e8f0;
+  scroll-margin-top: 70px;
+}
+
+#printSummary {
+  display: none;
+}
+
+#scrollProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 4px;
+  z-index: 101;
+  background: var(--accent);
 }
 
 #featured-project-banner {
@@ -319,6 +334,41 @@ button:hover {
   transform: scale(1.05);
 }
 
+a.button-link,
+a.button-link:visited {
+  appearance: button;
+  -webkit-appearance: button;
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid #767676;
+  border-radius: 0;
+  background: ButtonFace;
+  color: ButtonText;
+  font-family: inherit;
+  font-size: 13.3333px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+
+a.button-link:hover {
+  background: #333ba2;
+  color: #ffffff;
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+body.dark-theme a.button-link,
+body.dark-theme a.button-link:visited {
+  color: ButtonText;
+}
+
+body.dark-theme a.button-link:hover {
+  color: #ffffff;
+}
+
 .badge {
   position: absolute;
   top: 15px;
@@ -355,6 +405,18 @@ button:hover {
   justify-content: center;
   align-items: center;
   padding-bottom: 2px;
+}
+
+.welcome-message {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 101;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: #1e40af;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 nav ul {
@@ -465,4 +527,48 @@ body.dark-theme .skill-item {
 
 body.dark-theme .timeline {
   border-left-color: #555555;
+}
+
+@media print {
+  @page {
+    margin: 0.6in;
+  }
+
+  html,
+  body,
+  body * {
+    color: #000000 !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    padding: 0 !important;
+  }
+
+  nav,
+  button,
+  #portfolioControls,
+  #backToTop,
+  #scrollProgress,
+  #welcomeMessage,
+  #featured-project-banner,
+  #projectFilter,
+  label[for="projectFilter"],
+  #availabilityNotice,
+  #visitTipNotice,
+  #contact {
+    display: none !important;
+  }
+
+  #printSummary {
+    display: block !important;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #000000 !important;
+  }
+
+  footer p {
+    display: none !important;
+  }
 }

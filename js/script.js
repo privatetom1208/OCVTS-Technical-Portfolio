@@ -16,6 +16,22 @@ function toggleTheme() {
 
 themeToggle.addEventListener('click', toggleTheme);
 
+const scrollProgress = document.getElementById('scrollProgress');
+
+function updateScrollProgress() {
+    const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = pageHeight > 0
+        ? Math.min(100, (window.scrollY / pageHeight) * 100)
+        : 0;
+
+    scrollProgress.style.width = `${progress}%`;
+    scrollProgress.setAttribute('aria-valuenow', String(Math.round(progress)));
+}
+
+window.addEventListener('scroll', updateScrollProgress);
+window.addEventListener('resize', updateScrollProgress);
+updateScrollProgress();
+
 // extra skills
 const extraSkills = {
     Frontend: ['JavaScript', 'React'],
@@ -198,7 +214,7 @@ const yearSpan = document.getElementById('year');
 yearSpan.textContent = getCurrentYear();
 
 // Update this timestamp whenever the site content changes.
-const lastUpdated = new Date('2026-11-16T11:29:20-05:00');
+const lastUpdated = new Date('2026-11-16T16:55:26.828Z');
 const pageStartedAt = new Date();
 const formattedDate = lastUpdated.toLocaleDateString('en-US', {
     month: 'long',
@@ -238,6 +254,51 @@ function updateTimeOnSite() {
 updateTimeOnSite();
 setInterval(updateTimeOnSite, 1000);
 
+function showWelcomeMessage() {
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    welcomeMessage.hidden = false;
+    setTimeout(() => {
+        welcomeMessage.hidden = true;
+    }, 5000);
+}
+
+setTimeout(showWelcomeMessage, 5000);
+
+const visitTips = [
+    'Browse my project cards to see my work.',
+    'Try filtering projects by type.',
+    'Use the contact form to reach me.'
+];
+let currentTip = 0;
+
+function showNextTip() {
+    currentTip = (currentTip + 1) % visitTips.length;
+    document.getElementById('visitTip').textContent = visitTips[currentTip];
+}
+
+setInterval(showNextTip, 10000);
+
+let availabilitySeconds = 10 * 60;
+const availabilityNotice = document.getElementById('availabilityNotice');
+const availabilityCountdown = document.getElementById('availabilityCountdown');
+let availabilityTimer;
+
+function updateAvailabilityCountdown() {
+    availabilitySeconds--;
+
+    if (availabilitySeconds === 0) {
+        availabilityNotice.textContent = 'Limited availability window has ended.';
+        clearInterval(availabilityTimer);
+        return;
+    }
+
+    const minutes = Math.floor(availabilitySeconds / 60);
+    const seconds = availabilitySeconds % 60;
+    availabilityCountdown.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+availabilityTimer = setInterval(updateAvailabilityCountdown, 1000);
+
 // create sayHello() function
 function sayHello() {
     alert('Thanks for visiting!');
@@ -245,9 +306,11 @@ function sayHello() {
 
 document.getElementById('btn-hello').addEventListener('click', sayHello);
         
-document.getElementById('btn-print').addEventListener('click', function() {
+function printPortfolio() {
     window.print();
-});
+}
+
+document.getElementById('btn-print').addEventListener('click', printPortfolio);
         
 document.getElementById('btn-clear').addEventListener('click', function() {
     console.clear();

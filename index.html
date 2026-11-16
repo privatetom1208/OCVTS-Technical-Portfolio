@@ -22,9 +22,18 @@ COMMENTS / NOTES:
   </head>
 
   <body id="top" class="dark-theme">
+    <div id="scrollProgress" role="progressbar" aria-label="Page scroll progress"
+      aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
     <!-- Portfolio Website -->
     <main>
       <!-- Add sections here -->
+      <section id="printSummary" aria-labelledby="printSummaryHeading">
+        <h1 id="printSummaryHeading">Thomas Mairella</h1>
+        <p>Computer Science Student</p>
+        <p>Experience with Java, Python, HTML, CSS, and building software projects.</p>
+        <p>Projects: Slotz, Zihh., and Arduino Morse Code.</p>
+        <p>Contact: thomas.mairella@gmail.com | GitHub: github.com/privatetom1208</p>
+      </section>
       <section id="featured-project-banner" aria-labelledby="featured-project-heading">
         <p id="featured-project-heading">Today's featured project:</p>
         <h2 id="featured-project-title"></h2>
@@ -67,7 +76,8 @@ COMMENTS / NOTES:
             <aside>
               <h3>Quick Facts</h3>
               <p>Location: Toms River, NJ</p>
-              <p>Availability: Contact me for hours</p>
+              <p id="availabilityNotice">Limited availability: <span id="availabilityCountdown">10:00</span> left in this visit.</p>
+              <p id="visitTipNotice">Tip of the Visit: <span id="visitTip">Browse my project cards to see my work.</span></p>
               <p>Favorite Editor: Visual Studio Code</p>
             </aside>
 
@@ -235,10 +245,12 @@ COMMENTS / NOTES:
     </main>
     <a id="backToTop" href="#top" aria-label="Back to top">&#8679;</a>
     <!-- buttons for 15.3 -->
-    <form onsubmit="return false;">
+    <form id="portfolioControls" onsubmit="return false;">
       <button type="button" id="btn-hello">Click Me</button>
-      <button type="button" id="btn-print">Print Page</button>
+      <button type="button" id="btn-print">Print / Save as PDF</button>
       <button type="button" id="btn-clear">Clear Console</button>
+      <a class="button-link" href="https://drive.google.com/file/d/1vTvmZxNjV7kDCkaObf7VQ01mGnLspRsE/view?usp=sharing"
+        target="_blank" rel="noopener noreferrer">Download Resume</a>
     </form>
     <!-- Footer -->
     <footer>
@@ -252,5 +264,8 @@ COMMENTS / NOTES:
       <p>Time on site: <span id="timeOnSite"></span></p>
       <span id="year">2026</span>
     </footer>
+    <div id="welcomeMessage" class="welcome-message" role="status" aria-live="polite" hidden>
+      Thanks for exploring my portfolio!
+    </div>
   </body>
 </html>
