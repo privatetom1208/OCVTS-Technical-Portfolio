@@ -375,25 +375,19 @@ projectsContainer.addEventListener('dragend', () => {
 loadMoreButton.addEventListener('click', loadMoreProjects);
 loadMoreProjects();
 
-let lastFeaturedProject = localStorage.getItem('lastFeaturedProject');
-
-function showRandomProject() {
-    let index = Math.floor(Math.random() * projects.length);
-
-    while (projects.length > 1 && projects[index].title === lastFeaturedProject) {
-        index = Math.floor(Math.random() * projects.length);
+function showFeaturedProject() {
+    const featuredProject = projects.find((project) => project.featured);
+    if (!featuredProject) {
+        console.error('No featured project is configured.');
+        return;
     }
 
-    const featuredProject = projects[index];
     document.getElementById('featured-project-title').textContent = featuredProject.title;
     document.getElementById('featured-project-description').textContent = featuredProject.description;
     console.log("Today's featured project: " + featuredProject.title);
-
-    lastFeaturedProject = featuredProject.title;
-    localStorage.setItem('lastFeaturedProject', lastFeaturedProject);
 }
 
-showRandomProject();
+showFeaturedProject();
 
 // start timer
 console.time("Page Load Time");
@@ -478,34 +472,6 @@ function showNextTip() {
 
 setInterval(showNextTip, 10000);
 
-let availabilitySeconds = 10 * 60;
-const availabilityNotice = document.getElementById('availabilityNotice');
-const availabilityCountdown = document.getElementById('availabilityCountdown');
-let availabilityTimer;
-
-function updateAvailabilityCountdown() {
-    availabilitySeconds--;
-
-    if (availabilitySeconds === 0) {
-        availabilityNotice.textContent = 'Limited availability window has ended.';
-        clearInterval(availabilityTimer);
-        return;
-    }
-
-    const minutes = Math.floor(availabilitySeconds / 60);
-    const seconds = availabilitySeconds % 60;
-    availabilityCountdown.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-}
-
-availabilityTimer = setInterval(updateAvailabilityCountdown, 1000);
-
-// create sayHello() function
-function sayHello() {
-    alert('Thanks for visiting!');
-}
-
-document.getElementById('btn-hello').addEventListener('click', sayHello);
-        
 function printPortfolio() {
     window.print();
 }

@@ -636,7 +636,6 @@ body.dark-theme .timeline {
   #featured-project-banner,
   #projectFilter,
   label[for="projectFilter"],
-  #availabilityNotice,
   #visitTipNotice,
   #contact {
     display: none !important;
